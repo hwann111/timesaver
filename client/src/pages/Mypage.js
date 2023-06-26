@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import logo from './cn.png';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useUserState } from './UserContext';
 import styles from './mypage.module.css'
-
-
+import Login, {loginedInUser} from './Home';
+import logo from './logoimage.png';
+import homebutton from './homebutton.svg'
+import mypage from './mypage.svg'
+import optionselectbutton from './optionselectbutton.svg'
 
 // function Mypage() {
 //   return (
@@ -23,18 +24,18 @@ import styles from './mypage.module.css'
 
 const MyPage = () => {
 
-  const [userInfo, setUserInfo] = useState({
-    name: "홍길동",
-    id: 'hong123',
-    major: "컴퓨터정보통신",
-    number: "123456",
-    email: "123456@jnu.ac.kr",
-    pwd: "123456"
-  });
+  // const [userInfo, setUserInfo] = useState({loginedInUser});
+  const [userInfo, setUserInfo]=useState({
+    username: "홍길동",
+    password: " ",
+    grage: "1",
+    major: "컴퓨터",
+    student_id:'123456',
+    semester:2
+  })
 
   const [textMajor, setTextMajor] = useState("");
   const [textPwd, setTextPwd] = useState("");
-  const [textEmail, setTextEmail] = useState("");
 
   const majorChange = () => {
     setUserInfo(prevUserInfo => ({
@@ -43,12 +44,6 @@ const MyPage = () => {
     }));
   };
 
-  const emailChange = () => {
-    setUserInfo(prevUserInfo => ({
-      ...prevUserInfo,
-      email: textEmail,
-    }));
-  };
 
   //비밀번호에 맞게 수정하기
   const pwdChange = () => {
@@ -63,20 +58,20 @@ const MyPage = () => {
       <div className={styles['mypage']}>
         <div className={styles['myinfoframe']}>
           <span className={styles['text']}>
-          <span>{userInfo.name}</span>
+          <span>{userInfo.username}</span>
           </span>
           <div style={{top: "13px", left: "100px", position: 'absolute'}}>
           {userInfo.email}
           </div>
         
           <span className={styles['text02']}>
-            <span>{userInfo.number}</span>
+            <span>{userInfo.student_id}</span>
           </span>
           <span className={styles['text04']}>
             <span>{userInfo.major}</span>
           </span>
           <img
-            src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/83500b0e-6528-4d22-adda-d9e7de434eab/31d96da6-a645-4c26-8561-573fc7db36a1?org_if_sml=13959"
+            src={logo}
             alt="logoimage2413"
             className={styles['logopage']}
           />
@@ -106,16 +101,8 @@ const MyPage = () => {
               </span>
             </span>
           </div>
+          
           <div className={styles['frame1']}>
-            <span className={styles['text20']}>
-              <span>
-                <input type="text" value= {textEmail} onChange={(e)=> setTextEmail(e.target.value)}  />
-              <button onClick={emailChange}>이메일변경</button>
-                
-                </span>
-            </span>
-          </div>
-          <div className={styles['frame2']}>
             <span className={styles['text18']}>
               <span><button>비밀번호변경</button>
 	              </span>
@@ -143,9 +130,10 @@ const MyPage = () => {
           </div>
         </div>
         <div className={styles['bottombar']}>
+          <Link to={"/Option1"}>
           <button className={styles['selectoptionbutton']}>
             <img
-              src="/optionselectbuttoni397-de4n.svg"
+              src={optionselectbutton}
               alt="optionselectbuttonI397"
               className={styles['optionselectbutton']}
             />
@@ -153,22 +141,25 @@ const MyPage = () => {
               <span>강의 옵션 선택</span>
             </span>
           </button>
-          <button className={styles['homebutton']}>
+          </Link>
+          <Link to={"/"}>
+            <button className={styles['homebutton']}>
             <span className={styles['text30']}>
               <span>Home</span>
             </span>
             <img
-              src="/homebuttoni397-4qx6.svg"
+              src={homebutton}
               alt="HomeButtonI397"
               className={styles['home-button1']}
             />
           </button>
+          </Link>
           <button className={styles['mypagebutton']}>
             <span className={styles['text32']}>
               <span>my page</span>
             </span>
             <img
-              src="/userpagebuttoni397-k7q9.svg"
+              src={mypage}
               alt="UserpagebuttonI397"
               className={styles['userpagebutton']}
             />
